@@ -1,6 +1,7 @@
-ali 0  #####>
-ali 0  #####>
-ali 0 anika #####>
-ali 2 anika #####>
-ali 2 anika #####>
-ali 2 anika #####>
+anika 500 mim,sezan,rayhan,ali,anika #####>
+mim 2005 day1,day3,mohammad,day2 #####>
+mim 2005 day1,day3,mohammad,day2 #####>
+mohammad 2009 day1,day3,mohammad,day2,sezan #####>taxi
+mohammad 2009 day1,day3,mohammad,day2,sezan #>taxi
+mim 2009 day1,day3,mohammad,day2,sezan #>taxi
+mim 2009 day1,day3,mohammad,day2,sezan,rayhan #>taxi

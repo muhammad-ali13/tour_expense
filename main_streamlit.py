@@ -49,7 +49,7 @@ tcomment = col4.text_area('free space')
 tadd = col5.button('ADD')
 delLine = col5.number_input('which line you want to remove?',step=1)
 tremove =  col5.button('remove a line')
-ht = tname+' '+str(tmoney)+' '+','.join(tgr_or_name)+ ' #####>'+tcomment
+ht = tname+' '+str(tmoney)+' '+','.join(tgr_or_name)+ ' #>'+tcomment
 st.markdown('**single command:**')
 st.markdown('`'+ht+'`')
 
@@ -78,6 +78,12 @@ def single_line_handle(d):
     frm = d.split()[0]
     amnt = int(d.split()[1])
     t1 = d.split()[2]
+    remarks = d.split()[3:]
+    if len(remarks)>1:
+        remarks = ' '.join(remarks)
+    else: 
+        remarks = remarks[0]
+
     t2 = []
     for i in t1.split(','):
         if i in list(groups.keys()):
@@ -85,7 +91,9 @@ def single_line_handle(d):
         else:
             t2.append(i)
     t2 = set(t2)
-    return frm,amnt,list(t2)
+    
+
+    return frm,amnt,list(t2),remarks
 
 def payee_handler(payee,members):
     TFs = []
@@ -98,13 +106,14 @@ def payee_handler(payee,members):
 
 with open('check.txt','r') as f:
     data = f.readlines()
-df = pd.DataFrame(columns=['who_paid','amount']+members)
+df = pd.DataFrame(columns=['who_paid','amount']+members+['remarks'])
 for i in range(len(data)):
     line = data[i]
-    frm,amnt,t2 = single_line_handle(line)
+    frm,amnt,t2,remarks = single_line_handle(line)
     df.loc[i,'who_paid'] = frm
     df.loc[i,'amount'] = amnt
     df.loc[i,members] = payee_handler(payee=t2,members=members)
+    df.loc[i,'remarks'] = remarks
 
 st.dataframe(df)
 df.to_csv('initial.csv',index=False)
