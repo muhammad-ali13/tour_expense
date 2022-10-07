@@ -6,7 +6,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import os
-
+import json
 
 
 st.title("Nikko Tour Expense 2022")
@@ -24,7 +24,6 @@ st.sidebar.markdown(members)
 
 group_num = st.sidebar.number_input('how many groups you want?',min_value=1,step=1)
 group_num = int(group_num)
-groups = []
 group_dict ={}
 for i in range(group_num):
     gr_name = st.sidebar.text_input('group{}: name of the group'.format(i+1),key=i)
@@ -36,7 +35,10 @@ groups_or_names = list(group_dict.keys())
 groups_or_names.extend(members)
 # print(groups_or_names)
 
-
+with open('members.json','w') as f:
+    json.dump(members,f)
+with open('groups.json','w') as f:
+    json.dump(group_dict,f)
 
 
 col1,col2,col3,col4,col5 = st.columns(5)
@@ -71,9 +73,38 @@ if os.path.exists('check.txt'):
         st.write(data)
 
 ############### math pandas ###############
+groups = group_dict
+def single_line_handle(d):
+    frm = d.split()[0]
+    amnt = int(d.split()[1])
+    t1 = d.split()[2]
+    t2 = []
+    for i in t1.split(','):
+        if i in list(groups.keys()):
+            t2.extend(groups[i])
+        else:
+            t2.append(i)
+    t2 = set(t2)
+    return frm,amnt,list(t2)
 
-ex_dict = {}
-for i in members:
-    ex_dict[i]=None
+def payee_handler(payee,members):
+    TFs = []
+    for i in members:
+        if i in payee:
+            TFs.append(True)
+        else:
+            TFs.append(False)
+    return TFs
 
-st.write(ex_dict)
+with open('check.txt','r') as f:
+    data = f.readlines()
+df = pd.DataFrame(columns=['who_paid','amount']+members)
+for i in range(len(data)):
+    line = data[i]
+    frm,amnt,t2 = single_line_handle(line)
+    df.loc[i,'who_paid'] = frm
+    df.loc[i,'amount'] = amnt
+    df.loc[i,members] = payee_handler(payee=t2,members=members)
+
+st.dataframe(df)
+df.to_csv('initial.csv',index=False)
