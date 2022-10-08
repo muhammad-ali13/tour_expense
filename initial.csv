@@ -1,8 +1,5 @@
-who_paid,amount,ali,anika,mim,sezan,rayhan,mohammad,tamim,remarks
-anika,500,True,True,True,True,True,False,False,#####>
-mim,2005,True,True,True,True,False,True,True,#####>
-mim,2005,True,True,True,True,False,True,True,#####>
-mohammad,2009,True,True,True,True,False,True,True,#####>taxi
-mohammad,2009,True,True,True,True,False,True,True,#>taxi
-mim,2009,True,True,True,True,False,True,True,#>taxi
-mim,2009,True,True,True,True,True,True,True,#>taxi
+who_paid,amount,ali,sezan,rayhan,md,nabid,remarks
+md,100,True,True,True,True,True,"
+"
+ali,100,True,True,True,True,True,"
+"

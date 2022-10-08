@@ -78,11 +78,7 @@ def single_line_handle(d):
     frm = d.split()[0]
     amnt = int(d.split()[1])
     t1 = d.split()[2]
-    remarks = d.split()[3:]
-    if len(remarks)>1:
-        remarks = ' '.join(remarks)
-    else: 
-        remarks = remarks[0]
+    remarks = d.split('#>')[1]
 
     t2 = []
     for i in t1.split(','):
@@ -117,3 +113,24 @@ for i in range(len(data)):
 
 st.dataframe(df)
 df.to_csv('initial.csv',index=False)
+
+
+
+result = pd.DataFrame(np.zeros([len(members),len(members)]),columns=members,index=members)
+# result
+
+st.markdown('### Calculation Result')
+
+for i in range(len(df)):
+    print('##################')
+    tdf = df.loc[i,['who_paid','amount'] + members]
+    who = tdf['who_paid']
+    pay_amount = tdf['amount']
+    print(pay_amount)
+    per_person = pay_amount/sum(tdf[members])
+    print(per_person)
+    for i in members:
+        if tdf[i]==True:
+            result.loc[who,i]=result.loc[who,i] + round(per_person)
+
+st.dataframe(result)
