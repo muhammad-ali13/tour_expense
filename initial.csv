@@ -1,5 +1,11 @@
-who_paid,amount,ali,sezan,rayhan,md,nabid,remarks
-md,100,True,True,True,True,True,"
+who_paid,amount,ali,rayhan,sezan,md,nabid,remarks
+sezan,21600,True,True,True,True,True,"hotel booking
 "
-ali,100,True,True,True,True,True,"
+sezan,31250,True,True,True,True,True,"Nikko pass
+"
+sezan,1500,True,True,True,True,True,"second day nasta
+"
+sezan,5800,True,False,True,True,True,"second day train
+"
+ali,1500,False,False,False,False,True,"kebab & balish
 "

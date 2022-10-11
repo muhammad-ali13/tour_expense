@@ -1,2 +1,5 @@
-md 100 default #>
-ali 100 default #>
+sezan 21600 default #>hotel booking
+sezan 31250 default #>Nikko pass
+sezan 1500 default #>second day nasta
+sezan 5800 ali,sezan,md,nabid #>second day train
+ali 1500 nabid #>kebab & balish
